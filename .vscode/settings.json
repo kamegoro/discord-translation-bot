@@ -39,9 +39,12 @@
   ],
   "todo-tree.general.tags": ["HACK", "FIXME", "TODO", "NOTE"],
   "cSpell.words": [],
-  "python.formatting.provider": "black", // フォーマッターをblackに設定
+  "python.formatting.provider": "none", // フォーマッターをblackに設定
   "python.linting.pylintEnabled": false, // pyLintをオフに
   "python.linting.flake8Enabled": true, // flake8をオンに
   "python.linting.enabled": true, // リンターを有効に
-  "python.linting.lintOnSave": true
+  "python.linting.lintOnSave": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }
