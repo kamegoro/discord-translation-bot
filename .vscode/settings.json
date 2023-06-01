@@ -1,0 +1,47 @@
+{
+  "better-comments.tags": [
+    {
+      "tag": "FIXME",
+      "color": "#FFFFFF",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#FF6347",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "HACK",
+      "color": "#FFFFFF",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#696969",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "TODO",
+      "color": "#FFFFFF",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#FFA500",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "NOTE",
+      "color": "#FFFFFF",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#4169E1",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  "todo-tree.general.tags": ["HACK", "FIXME", "TODO", "NOTE"],
+  "cSpell.words": [],
+  "python.formatting.provider": "black", // フォーマッターをblackに設定
+  "python.linting.pylintEnabled": false, // pyLintをオフに
+  "python.linting.flake8Enabled": true, // flake8をオンに
+  "python.linting.enabled": true, // リンターを有効に
+  "python.linting.lintOnSave": true
+}
