@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode", // formatter
+    "streetsidesoftware.code-spell-checker", // typo checker
+    "dbaeumer.vscode-eslint", // linter
+    "aaron-bond.better-comments", // commnet highlighter
+    "ms-python.black-formatter" // python formatter
+  ]
+}
