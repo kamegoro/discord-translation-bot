@@ -1,4 +1,4 @@
-def callNum(num):
+def printFizzBuzzResult(num):
     if num % 3 == 0 and num % 5 == 0:
         print("FizzBuzz")
     elif num % 3 == 0:
@@ -9,4 +9,4 @@ def callNum(num):
         print(num)
 
 
-callNum(5)
+printFizzBuzzResult(5)
