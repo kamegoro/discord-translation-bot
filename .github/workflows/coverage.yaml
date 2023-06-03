@@ -37,7 +37,7 @@ jobs:
           coverage report -m > coverage_report.txt
 
       - name: Comment on PR with coverage report
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs');
@@ -45,8 +45,7 @@ jobs:
             const coverageReportPath = path.join(process.env.GITHUB_WORKSPACE, 'coverage_report.txt');
             const coverageReport = fs.readFileSync(coverageReportPath, 'utf8');
             const prNumber = context.payload.pull_request.number;
-            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-            octokit.rest.issues.createComment({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber,
