@@ -34,7 +34,7 @@ jobs:
       - name: Run tests and generate coverage report
         run: |
           coverage run --source=. -m unittest discover
-          coverage report -m
+          coverage report -m > coverage_report.txt
 
       - name: Comment on PR with coverage report
         uses: actions/github-script@v4
