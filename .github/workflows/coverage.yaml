@@ -37,18 +37,18 @@ jobs:
           coverage report -m
 
       - name: Comment on PR with coverage report
-          uses: actions/github-script@v4
-          with:
-            script: |
-              const fs = require('fs');
-              const path = require('path');
-              const coverageReportPath = path.join(process.env.GITHUB_WORKSPACE, 'coverage_report.txt');
-              const coverageReport = fs.readFileSync(coverageReportPath, 'utf8');
-              const prNumber = context.payload.pull_request.number;
-              const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-              octokit.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: `Coverage Report:\n\`\`\`\n${coverageReport}\n\`\`\``
-              });
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const coverageReportPath = path.join(process.env.GITHUB_WORKSPACE, 'coverage_report.txt');
+            const coverageReport = fs.readFileSync(coverageReportPath, 'utf8');
+            const prNumber = context.payload.pull_request.number;
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+            octokit.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `Coverage Report:\n\`\`\`\n${coverageReport}\n\`\`\``
+            });
