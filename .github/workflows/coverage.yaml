@@ -5,7 +5,8 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: 'write'
+  id-token: write
+  contents: write
 
 jobs:
   run-coverage-report:
@@ -39,6 +40,7 @@ jobs:
       - name: Comment on PR with coverage report
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const path = require('path');
