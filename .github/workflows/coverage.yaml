@@ -1,0 +1,54 @@
+name: Coverage Report
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: 'read'
+
+jobs:
+  run-coverage-report:
+    name: CoverageReport
+
+    timeout-minutes: 10
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.9']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: pip3 install -r requirements.txt
+
+      - name: Run tests and generate coverage report
+        run: |
+          coverage run --source=. -m unittest discover
+          coverage report -m
+
+      - name: Comment on PR with coverage report
+          uses: actions/github-script@v4
+          with:
+            script: |
+              const fs = require('fs');
+              const path = require('path');
+              const coverageReportPath = path.join(process.env.GITHUB_WORKSPACE, 'coverage_report.txt');
+              const coverageReport = fs.readFileSync(coverageReportPath, 'utf8');
+              const prNumber = context.payload.pull_request.number;
+              const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+              octokit.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: `Coverage Report:\n\`\`\`\n${coverageReport}\n\`\`\``
+              });
