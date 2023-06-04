@@ -6,7 +6,11 @@ load_dotenv()
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.typing = False
+intents.presences = False
+
+client = discord.Client(intents=intents)
 
 
 @client.event
