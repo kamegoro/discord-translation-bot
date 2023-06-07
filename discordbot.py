@@ -1,28 +1,27 @@
-import math
+import os
+import discord
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
 
 
-def printFizzBuzzResult(num):
-    if not isinstance(num, (int, float)):
-        print("数字を入力してください")
+@client.event
+async def on_ready():
+    print("ログインしました")
+
+
+@client.event
+async def on_reaction_add(reaction, user):
+    if user.bot:
         return
 
-    if math.floor(num) != num:
-        print("整数を入力してください")
-        return
-
-    if num % 3 == 0 and num % 5 == 0:
-        print("FizzBuzz")
-    elif num % 3 == 0:
-        print("Fizz")
-    elif num % 5 == 0:
-        print("Buzz")
-    else:
-        print("FizzでもBuzzでもない")
+    channel = reaction.message.channel
+    await channel.send(f"{user.name}さんがリアクションしました")
 
 
-printFizzBuzzResult(3)
-printFizzBuzzResult(5)
-printFizzBuzzResult(15)
-printFizzBuzzResult(1)
-printFizzBuzzResult(0.1)
-printFizzBuzzResult("number")
+client.run(DISCORD_TOKEN)
