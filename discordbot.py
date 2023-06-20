@@ -1,10 +1,12 @@
 import os
+
 import discord
 from dotenv import load_dotenv
 
 load_dotenv()
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+TRANSLATION_BOT_ID = os.getenv("TRANSLATION_BOT_ID")
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -16,12 +18,13 @@ async def on_ready():
 
 
 @client.event
-async def on_reaction_add(reaction, user):
-    if user.bot:
+async def on_message(message):
+    if not message.mentions:
         return
 
-    channel = reaction.message.channel
-    await channel.send(f"{user.name}さんがリアクションしました")
+    for mention in message.mentions:
+        if mention.id == int(TRANSLATION_BOT_ID):
+            await message.channel.send("翻訳botにメンションしました")
 
 
 client.run(DISCORD_TOKEN)
