@@ -1,17 +1,16 @@
-import discord
+import requests
 import os
+import discord
 from dotenv import load_dotenv
-from api import api_request
 
 load_dotenv()
 
+DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-url = "https://hoge/data"
+TRANSLATION_BOT_ID = os.getenv("TRANSLATION_BOT_ID")
+url = "https://api-free.deepl.com/v2/translate"
 
 intents = discord.Intents.default()
-intents.typing = False
-intents.presences = False
-
 client = discord.Client(intents=intents)
 
 
@@ -25,13 +24,28 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    await message.channel.send("メッセージが書き込まれました")
+    if not message.mentions:
+        return
 
-    flag = False
+    for mention in message.mentions:
+        if mention.id == int(TRANSLATION_BOT_ID):
 
-    if flag:
-        response = api_request(url)
-        print(response)
+            def make_api_request():
+                data = {
+                    "text": message.content,
+                    "target_lang": "JA",
+                    "auth_key": DEEPL_API_KEY,
+                }
+
+                response = requests.post(url, data=data)
+                print(response)
+                if response.status_code == 200:
+                    json = response.json()
+                    return json["translations"][0]["text"]
+                else:
+                    return None
+
+            await message.channel.send(make_api_request())
 
 
 client.run(DISCORD_TOKEN)
