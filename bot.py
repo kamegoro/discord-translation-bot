@@ -8,6 +8,7 @@ load_dotenv()
 DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 TRANSLATION_BOT_ID = os.getenv("TRANSLATION_BOT_ID")
+url = "https://api-free.deepl.com/v2/translate"
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -16,9 +17,6 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     print("ログインしました")
-
-
-url = "https://api-free.deepl.com/v2/translate"
 
 
 @client.event
