@@ -10,14 +10,28 @@
 
 ### Development
 
+Requires Python 3.13 (see `.python-version`).
+
 Installing dependent libraries
 
 ```sh
-$ python3 -m pip3 install -r requirements.txt
+$ python3 -m pip install -r requirements.txt
+```
+
+To add or update a dependency, edit `requirements.in` and regenerate the lock file `requirements.txt`:
+
+```sh
+$ uv pip compile requirements.in -o requirements.txt --python-version 3.13
 ```
 
 discord.bot startup
 
 ```sh
-python3 discordbot.py
+python3 bot.py
+```
+
+Running tests
+
+```sh
+python3 -m unittest discover
 ```
